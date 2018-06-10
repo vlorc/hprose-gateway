@@ -15,6 +15,8 @@ func (ModuleNamed) Resolver(path string, _ string) interface{} {
 func rootModule(path string) string {
 	if pos := strings.IndexByte(path, byte('_')); pos > 0 {
 		path = path[:pos]
+	} else {
+		path = ""
 	}
 	return path
 }

@@ -5,7 +5,5 @@ type SessionFactory interface {
 }
 
 type Session interface {
-	Verify() error
-	AppId() string
-	Value() interface{}
+	Appid() string
 }

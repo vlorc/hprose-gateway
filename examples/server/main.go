@@ -14,7 +14,6 @@ func main() {
 	var url = flag.String("register", "127.0.0.1:2379", "register url")
 	var prefix = flag.String("prefix", "rpc", "register prefix")
 	var addr = flag.String("addr", "tcp://127.0.0.1:1234", "listen address")
-	var key = flag.String("table", "table", "table name")
 
 	flag.Parse()
 
@@ -31,11 +30,6 @@ func main() {
 		Id:   "id",
 		Name: "test",
 		Url:  *addr,
-		Path: "Hello",
-		Meta: map[string]interface{}{
-			*key: server.MethodNames,
-		},
 	})
-	log.Print("method: ", server.MethodNames)
 	server.Start()
 }

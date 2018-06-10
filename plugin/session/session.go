@@ -72,10 +72,10 @@ func (s *sessionParam) Handler(next types.InvokeHandler, ctx context.Context, me
 		return nil, s.err
 	}
 	session, err := s.factory.Instance(str)
-	if nil != err || nil != session.Verify() {
+	if nil != err {
 		return nil, s.err
 	}
-	ctx = context.WithValue(ctx, "appid", session.AppId())
-	args[len(args)-1] = reflect.ValueOf(session.Value())
+	ctx = context.WithValue(ctx, "appid", session.Appid())
+	args[len(args)-1] = reflect.ValueOf(session)
 	return next(ctx, method, args)
 }

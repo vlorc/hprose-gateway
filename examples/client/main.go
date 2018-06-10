@@ -3,10 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/hprose/hprose-golang/rpc"
-	_ "github.com/vlorc/hprose-gateway/plugin/session"
-	_ "github.com/vlorc/hprose-gateway/protocol/forward"
-	_ "github.com/vlorc/hprose-gateway/protocol/hprose"
-	_ "github.com/vlorc/hprose-gateway/protocol/restful"
 	"log"
 )
 

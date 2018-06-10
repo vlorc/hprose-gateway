@@ -85,7 +85,7 @@ func Balancer(name string) func(*GatewayOption) {
 	}
 }
 
-func Plugin(name string, param map[string]string) func(*GatewayOption) {
+func Plugin(ctx context.Context,name string, param map[string]string) func(*GatewayOption) {
 	return func(opt *GatewayOption) {
 		pluginAppend(opt, opt.Context, types.Describe{Name: name, Param: param})
 	}
@@ -142,7 +142,7 @@ func pluginAppend(opt *GatewayOption, ctx context.Context, info types.Describe) 
 
 func Plugins(ctx context.Context, args ...types.Describe) func(*GatewayOption) {
 	return func(opt *GatewayOption) {
-		if nil != ctx {
+		if nil == ctx {
 			ctx = opt.Context
 		}
 		for i := range args {
