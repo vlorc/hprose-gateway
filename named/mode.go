@@ -1,7 +1,7 @@
 package named
 
 import (
-	"github.com/vlorc/hprose-gateway/core/types"
+	"github.com/vlorc/hprose-gateway-core/types"
 	"strings"
 )
 

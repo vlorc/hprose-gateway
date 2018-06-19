@@ -2,7 +2,7 @@ package gateway
 
 import (
 	"github.com/hprose/hprose-golang/rpc"
-	"github.com/vlorc/hprose-gateway/core/invoker"
+	"github.com/vlorc/hprose-gateway-core/invoker"
 	"github.com/vlorc/hprose-gateway/option"
 	"reflect"
 )

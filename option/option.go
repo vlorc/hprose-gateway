@@ -2,13 +2,13 @@ package option
 
 import (
 	"context"
-	"github.com/vlorc/hprose-gateway/core/etcd"
-	"github.com/vlorc/hprose-gateway/core/invoker"
-	"github.com/vlorc/hprose-gateway/core/plugin"
-	"github.com/vlorc/hprose-gateway/core/router"
-	"github.com/vlorc/hprose-gateway/core/source"
-	"github.com/vlorc/hprose-gateway/core/types"
-	"github.com/vlorc/hprose-gateway/core/water"
+	"github.com/vlorc/hprose-gateway-core/etcd"
+	"github.com/vlorc/hprose-gateway-core/invoker"
+	"github.com/vlorc/hprose-gateway-core/plugin"
+	"github.com/vlorc/hprose-gateway-core/router"
+	"github.com/vlorc/hprose-gateway-core/source"
+	"github.com/vlorc/hprose-gateway-core/types"
+	"github.com/vlorc/hprose-gateway-core/water"
 	"go.uber.org/zap"
 )
 
@@ -43,8 +43,18 @@ func EtcdResolver(url, prefix string) func(*GatewayOption) {
 	}
 }
 
-func Context(ctx context.Context) func(*GatewayOption) {
+func WithValue(key string, val interface{}) func(*GatewayOption) {
 	return func(opt *GatewayOption) {
+		opt.Context = context.WithValue(opt.Context, key, val)
+	}
+}
+
+func Context(ctx context.Context, env ...interface{}) func(*GatewayOption) {
+	return func(opt *GatewayOption) {
+		ctx = context.WithValue(ctx, "option", opt)
+		for i, l := 0, len(env)/2; i < l; i++ {
+			ctx = context.WithValue(ctx, env[i*2+0], env[i*2+1])
+		}
 		opt.Context = ctx
 	}
 }
@@ -85,12 +95,6 @@ func Balancer(name string) func(*GatewayOption) {
 	}
 }
 
-func Plugin(ctx context.Context,name string, param map[string]string) func(*GatewayOption) {
-	return func(opt *GatewayOption) {
-		pluginAppend(opt, opt.Context, types.Describe{Name: name, Param: param})
-	}
-}
-
 func Named(mode types.NamedMode) func(*GatewayOption) {
 	return func(opt *GatewayOption) {
 		opt.Named = mode
@@ -126,13 +130,13 @@ func Router(router types.NamedRouter) func(*GatewayOption) {
 	}
 }
 
-func pluginAppend(opt *GatewayOption, ctx context.Context, info types.Describe) {
+func pluginAppend(opt *GatewayOption, info types.Describe) {
 	factory := plugin.Query(info.Name)
 	opt.Log().Debug("Plugin", zap.String("name", info.Name), zap.Bool("query", nil != factory))
 	if nil == factory {
 		return
 	}
-	bean := factory.Instance(ctx, info.Param)
+	bean := factory.Instance(opt.Context, info.Param)
 	opt.Log().Debug("Plugin", zap.String("name", info.Name), zap.Bool("instance", nil != bean))
 	if nil == bean {
 		return
@@ -140,13 +144,16 @@ func pluginAppend(opt *GatewayOption, ctx context.Context, info types.Describe) 
 	opt.Plugins = append(opt.Plugins, bean)
 }
 
-func Plugins(ctx context.Context, args ...types.Describe) func(*GatewayOption) {
+func Plugin(name string, param map[string]string) func(*GatewayOption) {
 	return func(opt *GatewayOption) {
-		if nil == ctx {
-			ctx = opt.Context
-		}
+		pluginAppend(opt, types.Describe{Name: name, Param: param})
+	}
+}
+
+func Plugins(args ...types.Describe) func(*GatewayOption) {
+	return func(opt *GatewayOption) {
 		for i := range args {
-			pluginAppend(opt, ctx, args[i])
+			pluginAppend(opt, args[i])
 		}
 	}
 }
