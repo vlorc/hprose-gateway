@@ -5,17 +5,16 @@ import (
 	"errors"
 	"flag"
 	"github.com/hprose/hprose-golang/rpc"
-	"github.com/hprose/hprose-golang/rpc/websocket"
 	"github.com/vlorc/hprose-gateway-core/source"
-	"github.com/vlorc/hprose-gateway/gateway"
-	"github.com/vlorc/hprose-gateway/named"
-	"github.com/vlorc/hprose-gateway/option"
 	_ "github.com/vlorc/hprose-gateway-plugins/session"
 	_ "github.com/vlorc/hprose-gateway-protocol/forward"
 	_ "github.com/vlorc/hprose-gateway-protocol/hprose"
 	_ "github.com/vlorc/hprose-gateway-protocol/restful"
+	"github.com/vlorc/hprose-gateway/gateway"
+	"github.com/vlorc/hprose-gateway/named"
+	"github.com/vlorc/hprose-gateway/option"
 	"net/http"
-	)
+)
 
 func main() {
 	var debug = flag.Bool("debug", true, "debug mode")
@@ -38,11 +37,9 @@ func main() {
 		option.RouterAuto(),
 		option.WaterAuto())
 
-	service := websocket.NewWebSocketService()
+	service := rpc.NewHTTPService()
 	service.Debug = *debug
 	service.AddMissingMethod(gateway.Invoke, rpc.Options{Mode: rpc.Raw, JSONCompatible: true, Simple: true})
 
-	http.ListenAndServe(*addr, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		service.ServeHTTP(w, r)
-	}))
+	http.ListenAndServe(*addr, service)
 }
