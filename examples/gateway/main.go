@@ -5,6 +5,7 @@ import (
 	"errors"
 	"flag"
 	"github.com/hprose/hprose-golang/rpc"
+	"github.com/vlorc/hprose-gateway-core/option"
 	"github.com/vlorc/hprose-gateway-core/source"
 	_ "github.com/vlorc/hprose-gateway-plugins/session"
 	_ "github.com/vlorc/hprose-gateway-protocol/forward"
@@ -12,7 +13,7 @@ import (
 	_ "github.com/vlorc/hprose-gateway-protocol/restful"
 	"github.com/vlorc/hprose-gateway/gateway"
 	"github.com/vlorc/hprose-gateway/named"
-	"github.com/vlorc/hprose-gateway/option"
+
 	"net/http"
 )
 

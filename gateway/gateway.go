@@ -3,8 +3,9 @@ package gateway
 import (
 	"github.com/hprose/hprose-golang/rpc"
 	"github.com/vlorc/hprose-gateway-core/invoker"
-	"github.com/vlorc/hprose-gateway/option"
+	"github.com/vlorc/hprose-gateway-core/option"
 	"reflect"
+	"sort"
 )
 
 type HproseGateway struct {
@@ -12,12 +13,15 @@ type HproseGateway struct {
 }
 
 func NewGateway(o ...func(*option.GatewayOption)) *HproseGateway {
-	opt := &option.GatewayOption{}
+	opt := option.NewDefault()
 	opt.Plugins = invoker.NewInvoker(NewInvoker(opt))
-	for _, v := range o {
-		v(opt)
-	}
-	go opt.Resolver.Watch("*", opt.Water)
+	opt = option.NewOptionWith(opt, o...)
+	sort.Sort(opt.Plugins)
+	go opt.Resolver.Watch(opt.Prefix, opt.Water)
+	return NewGatewayWith(opt)
+}
+
+func NewGatewayWith(opt *option.GatewayOption) *HproseGateway {
 	return &HproseGateway{opt: opt}
 }
 

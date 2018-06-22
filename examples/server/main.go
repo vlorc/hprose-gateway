@@ -5,7 +5,7 @@ import (
 	"flag"
 	"github.com/hprose/hprose-golang/rpc"
 	"github.com/vlorc/hprose-gateway-core/etcd"
-	"github.com/vlorc/hprose-gateway-core/types"
+	"github.com/vlorc/hprose-gateway-types"
 	"log"
 	"net"
 )

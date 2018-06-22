@@ -3,7 +3,7 @@ package gateway
 import (
 	"bytes"
 	"fmt"
-	"github.com/vlorc/hprose-gateway-core/types"
+	"github.com/vlorc/hprose-gateway-types"
 	"io"
 	"reflect"
 	"strconv"
