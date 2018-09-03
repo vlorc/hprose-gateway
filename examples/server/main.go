@@ -4,7 +4,8 @@ import (
 	"context"
 	"flag"
 	"github.com/hprose/hprose-golang/rpc"
-	"github.com/vlorc/hprose-gateway-core/etcd"
+	"github.com/vlorc/hprose-gateway-etcd/client"
+	"github.com/vlorc/hprose-gateway-etcd/manager"
 	"github.com/vlorc/hprose-gateway-types"
 	"log"
 	"net"
@@ -19,7 +20,7 @@ func main() {
 
 	flag.Parse()
 
-	manager := etcd.NewEtcdManager(etcd.NewLazyClient(etcd.NewClient(*url)), context.Background(), *prefix, 5)
+	manage := manager.NewManager(client.NewLazyClient(client.NewClient(*url)), context.Background(), *prefix, 5)
 	server := rpc.NewTCPServer("")
 	server.Debug = *debug
 
@@ -29,7 +30,7 @@ func main() {
 	}, rpc.Options{JSONCompatible: true, Simple: true})
 
 	listen, _ := net.Listen("tcp", *addr)
-	manager.Register(*name, listen.Addr().String()).Update(&types.Service{
+	manage.Register(*name, listen.Addr().String()).Update(&types.Service{
 		Id:   "id",
 		Name: "test",
 		Url:  listen.Addr().Network() + "://" + listen.Addr().String(),

@@ -7,6 +7,8 @@ import (
 	"github.com/hprose/hprose-golang/rpc"
 	"github.com/vlorc/hprose-gateway-core/option"
 	"github.com/vlorc/hprose-gateway-core/source"
+	"github.com/vlorc/hprose-gateway-etcd/client"
+	"github.com/vlorc/hprose-gateway-etcd/resolver"
 	_ "github.com/vlorc/hprose-gateway-plugins/session"
 	_ "github.com/vlorc/hprose-gateway-protocol/forward"
 	_ "github.com/vlorc/hprose-gateway-protocol/hprose"
@@ -26,12 +28,11 @@ func main() {
 	var addr = flag.String("addr", "0.0.0.0:80", "listen address")
 
 	flag.Parse()
-
 	gateway := gateway.NewGateway(
 		option.Context(context.Background()),
 		option.LoggerAuto(*debug),
 		option.Error(errors.New(*err)),
-		option.EtcdResolver(*url, *prefix),
+		option.Resolver(resolver.NewResolver(client.NewLazyClient(client.NewClient(*url)),context.Background(), *prefix)),
 		option.Manager(source.NewSourceManger()),
 		option.Balancer(*balancer),
 		option.Named(named.ModuleNamed{}),
