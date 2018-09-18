@@ -21,6 +21,21 @@ Hprose gateway based on golang
 ## Installing
 	go get github.com/vlorc/hprose-gateway
 
+## Library
++ discovery
+	+ [etcd](https://github.com/vlorc/hprose-gateway-etcd)
+	+ [dns](https://github.com/vlorc/hprose-gateway-dns)
+	+ [consul](https://github.com/vlorc/hprose-gateway-consul)
++ plugin
+	+ [counter](https://github.com/vlorc/hprose-gateway-plugins/counter)
+	+ [hash](https://github.com/vlorc/hprose-gateway-plugins/hash)
+	+ [limiter](https://github.com/vlorc/hprose-gateway-plugins/limiter)
+	+ [panic](https://github.com/vlorc/hprose-gateway-plugins/panic)
+	+ [session](https://github.com/vlorc/hprose-gateway-plugins/session)
++ protocol
+	+ [hprose](https://github.com/vlorc/hprose-gateway-protocol/hprose)
+	+ [forward](https://github.com/vlorc/hprose-gateway-protocol/forward)
+
 ## License
 This project is under the apache License. See the LICENSE file for the full license text.
 
