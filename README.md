@@ -27,14 +27,14 @@ Hprose gateway based on golang
 	+ [dns](https://github.com/vlorc/hprose-gateway-dns)
 	+ [consul](https://github.com/vlorc/hprose-gateway-consul)
 + plugin
-	+ [counter](https://github.com/vlorc/hprose-gateway-plugins/counter)
-	+ [hash](https://github.com/vlorc/hprose-gateway-plugins/hash)
-	+ [limiter](https://github.com/vlorc/hprose-gateway-plugins/limiter)
-	+ [panic](https://github.com/vlorc/hprose-gateway-plugins/panic)
-	+ [session](https://github.com/vlorc/hprose-gateway-plugins/session)
+	+ [counter](https://github.com/vlorc/hprose-gateway-plugins/tree/master/counter)
+	+ [hash](https://github.com/vlorc/hprose-gateway-plugins/tree/master/hash)
+	+ [limiter](https://github.com/vlorc/hprose-gateway-plugins/tree/master/limiter)
+	+ [panic](https://github.com/vlorc/hprose-gateway-plugins/tree/master/panic)
+	+ [session](https://github.com/vlorc/hprose-gateway-plugins/tree/master/session)
 + protocol
-	+ [hprose](https://github.com/vlorc/hprose-gateway-protocol/hprose)
-	+ [forward](https://github.com/vlorc/hprose-gateway-protocol/forward)
+	+ [hprose](https://github.com/vlorc/hprose-gateway-protocol/tree/master/hprose)
+	+ [forward](https://github.com/vlorc/hprose-gateway-protocol/tree/master/forward)
 
 ## License
 This project is under the apache License. See the LICENSE file for the full license text.
