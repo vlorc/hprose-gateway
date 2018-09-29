@@ -21,5 +21,20 @@
 ## 安装
 	go get github.com/vlorc/hprose-gateway
 
+## 库
++ 发现服务
+	+ [etcd](https://github.com/vlorc/hprose-gateway-etcd)
+	+ [dns](https://github.com/vlorc/hprose-gateway-dns)
+	+ [consul](https://github.com/vlorc/hprose-gateway-consul)
++ 插件
+	+ [counter](https://github.com/vlorc/hprose-gateway-plugins/counter)
+	+ [hash](https://github.com/vlorc/hprose-gateway-plugins/hash)
+	+ [limiter](https://github.com/vlorc/hprose-gateway-plugins/limiter)
+	+ [panic](https://github.com/vlorc/hprose-gateway-plugins/panic)
+	+ [session](https://github.com/vlorc/hprose-gateway-plugins/session)
++ 协议
+	+ [hprose](https://github.com/vlorc/hprose-gateway-protocol/hprose)
+	+ [forward](https://github.com/vlorc/hprose-gateway-protocol/forward)
+
 ## 许可证
 这个项目是在Apache许可证下进行的。请参阅完整许可证文本的许可证文件。
