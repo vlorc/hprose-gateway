@@ -17,7 +17,7 @@ func NewGateway(o ...func(*option.GatewayOption)) *HproseGateway {
 	opt.Plugins = invoker.NewInvoker(NewInvoker(opt))
 	opt = option.NewOptionWith(opt, o...)
 	sort.Sort(opt.Plugins)
-	go opt.Resolver.Watch(opt.Prefix, opt.Water)
+	go opt.Resolver.Watch(opt.Prefix, opt.Watcher)
 	return NewGatewayWith(opt)
 }
 

@@ -4,8 +4,8 @@ import (
 	"context"
 	"flag"
 	"github.com/hprose/hprose-golang/rpc"
-	"github.com/vlorc/hprose-gateway-etcd/client"
-	"github.com/vlorc/hprose-gateway-etcd/manager"
+	"github.com/vlorc/hprose-gateway-consul/client"
+	"github.com/vlorc/hprose-gateway-consul/manager"
 	"github.com/vlorc/hprose-gateway-types"
 	"log"
 	"net"
@@ -13,7 +13,7 @@ import (
 
 func main() {
 	var debug = flag.Bool("debug", true, "debug mode")
-	var url = flag.String("url", "127.0.0.1:2379", "register url")
+	var url = flag.String("url", "127.0.0.1:8500", "register url")
 	var prefix = flag.String("prefix", "rpc", "register prefix")
 	var addr = flag.String("addr", "127.0.0.1:0", "listen address")
 	var name = flag.String("name", "public", "service name")
